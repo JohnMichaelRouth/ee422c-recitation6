@@ -1,5 +1,5 @@
 /*
- * Phase A <studentA EID><studentB EID>
+ * Phase A Phase A <JMR7567><BEN442>
  * Phase B <studentB EID><studentA EID>
  * https://github.com/JohnMichaelRouth/ee422c-recitation6
  */
@@ -30,8 +30,7 @@ public class PMap {
      * @return the number of key-value mappings in this map
      */
     public Integer size() {
-        // TODO
-        return 0;
+        return entries.size();
     }
 
     /**
@@ -42,8 +41,7 @@ public class PMap {
      *         mappings
      */
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return entries.isEmpty();
     }
 
     /**
@@ -55,7 +53,11 @@ public class PMap {
      *         specified key
      */
     public boolean containsKey(Integer key) {
-        // TODO
+        for(int i = 0; i < entries.size(); i++){
+            if(entries.get(i).getKey() == key){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -68,7 +70,11 @@ public class PMap {
      *         specified value
      */
     public boolean containsValue(Integer value) {
-        // TODO
+        for(int i = 0; i < entries.size(); i++){
+            if(entries.get(i).getValue() == value){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -82,8 +88,12 @@ public class PMap {
      *         key
      */
     public Integer get(Integer key) {
-        // TODO
-        return 0;
+        for(int i = 0; i < entries.size(); i++){
+            if(entries.get(i).getKey() == key){
+                return entries.get(i).getValue();
+            }
+        }
+        return null;
     }
 
     /**
@@ -99,8 +109,17 @@ public class PMap {
      *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
      */
     public Integer put(Integer key, Integer value) {
-        // TODO
-        return 0;
+        PEntry entry = new PEntry(key,value);
+        int oldValue;
+        if(containsKey(key)) {
+            oldValue = get(key);
+        }
+        else {
+            entries.add(entry);
+            return null;
+        }
+        entries.add(entry);
+        return oldValue;
     }
 
     /**
@@ -119,8 +138,15 @@ public class PMap {
      *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
      */
     public Integer remove(Integer key) {
-        // TODO
-        return 0;
+        int oldValue;
+        if(containsKey(key)) {
+            oldValue = get(key);
+        }
+        else {
+            return null;
+        }
+        entries.remove(new PEntry(key, oldValue));
+        return oldValue;
     }
 
     /**
@@ -132,7 +158,9 @@ public class PMap {
      * @param values the array of values to be stored in this map
      */
     public void putAll(Integer[] keys, Integer[] values) {
-        // TODO
+        for(int i = 0; i < keys.length; i++){
+            entries.add(new PEntry(keys[i],values[i]));
+        }
     }
 
     /**
@@ -140,7 +168,7 @@ public class PMap {
      * empty after this call returns.
      */
     public void clear() {
-        // TODO
+        entries.clear();
     }
 
     /**
@@ -149,8 +177,15 @@ public class PMap {
      * @return an array of the keys contained in this map
      */
     public Integer[] keySet() {
-        // TODO
-        return null;
+        Integer[] keysArray = new Integer[entries.size()];
+        int arrayIndex = 0;
+        for(int i = 0; i < entries.size(); i++){
+            if(containsKey(i)){
+                keysArray[arrayIndex] = entries.get(i).getKey();
+                arrayIndex++;
+            }
+        }
+        return keysArray;
     }
 
     /**
@@ -159,8 +194,15 @@ public class PMap {
      * @return an array of the values contained in this map
      */
     public Integer[] values() {
-        // TODO
-        return null;
+        Integer[] valuesArray = new Integer[entries.size()];
+        int arrayIndex = 0;
+        for(int i = 0; i < entries.size(); i++){
+            if(containsKey(i)){
+                valuesArray[arrayIndex] = entries.get(i).getValue();
+                arrayIndex++;
+            }
+        }
+        return valuesArray;
     }
 
     /**
@@ -169,7 +211,6 @@ public class PMap {
      * @return an array of the mappings contained in this map
      */
     public PEntry[] entrySet() {
-        // TODO
-        return null;
+        return (PEntry[]) entries.toArray();
     }
 }

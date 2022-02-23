@@ -1,5 +1,5 @@
 /*
- * Phase A <studentA EID><studentB EID>
+ * Phase A Phase A <JMR7567><BEN442>
  * Phase B <studentB EID><studentA EID>
  */
 
